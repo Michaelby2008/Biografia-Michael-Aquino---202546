@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Datos del Usuario</title>
 
     <style>
         * {
@@ -57,19 +56,56 @@
         .subtitulo {
             font-size: 15px;
             color: #475569;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .usuario {
-            font-weight: bold;
-            color: #2563eb;
+        .datos {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .dato {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 18px;
+            text-align: left;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dato:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .etiqueta {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .valor {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .lista {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
         }
 
         .acciones {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 25px;
+            margin-top: 10px;
         }
 
         .boton {
@@ -78,6 +114,7 @@
             padding: 14px 20px;
             border-radius: 14px;
             text-decoration: none;
+            text-align: center;
             background: linear-gradient(135deg, #2563eb, #0ea5e9);
             color: white;
             font-size: 16px;
@@ -91,33 +128,7 @@
             box-shadow: 0 14px 24px rgba(37, 99, 235, 0.35);
         }
 
-        .logout {
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.25);
-        }
-
-        .logout:hover {
-            box-shadow: 0 14px 24px rgba(220, 38, 38, 0.35);
-        }
-
-        .logout-btn {
-            width: 100%;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 14px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .logout-btn:active {
+        .boton:active {
             transform: scale(0.98);
         }
 
@@ -129,35 +140,47 @@
             .titulo {
                 font-size: 25px;
             }
+
+            .valor {
+                font-size: 16px;
+            }
         }
     </style>
-</head>
 
+</head>
 <body>
 
 <div class="contenedor">
     <div class="tarjeta">
-        <h1 class="titulo">Bienvenido</h1>
-        <p class="subtitulo">
-            Hola, <span class="usuario" th:text="${username}"></span>
-        </p>
+        <h1 class="titulo">Datos Personales</h1>
+        <p class="subtitulo">Información de mi persona utilizando Thymeleaf</p>
 
-        <p>Has iniciado sesión correctamente.</p>
+        <div class="dato">
+            <span class="etiqueta">Nombre</span>
+            <span class="valor" th:text="${Nombre}"></span>
+        </div>
+
+        <div class="dato">
+            <span class="etiqueta">Edad</span>
+            <span class="valor" th:text="${Edad}"></span>
+        </div>
+
+        <div class="dato">
+            <span class="etiqueta">Habilidades</span>
+
+            <ul class="lista">
+                <li th:each="hab : ${Habilidades}" th:text="${hab}"></li>
+            </ul>
+        </div>
 
         <div class="acciones">
-
-            <a class="boton" th:href="@{/usuario}">Ir a usuarios</a>
-
-            <a class="boton" th:href="@{/datos}">Ir a datos personales</a>
-
             <a class="boton" th:href="@{/biografia}">Ir a Biografia</a>
 
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="logout-btn">
-                    Cerrar sesión
-                </button>
-            </form>
+            <a class="boton" th:href="@{/datos}">Ir a Datos</a>
+
+            <a class="boton" th:href="@{/home}">Ir a Home</a>
         </div>
+
     </div>
 </div>
 
